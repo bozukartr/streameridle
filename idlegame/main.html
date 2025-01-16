@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Streamer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="game-logo">
+            <img src="img/logo.png" alt="Idle Streamer Logo" id="gameLogo">
+        </div>
+        <div class="stream-container">
+            <!-- Sol Panel -->
+            <div class="left-panel">
+                <div class="stats-vertical">
+                    <div class="stat-item">
+                        <i class="material-icons">people</i>
+                        <span id="followers">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="material-icons">attach_money</i>
+                        <span>$<span id="money">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="material-icons">trending_up</i>
+                        <span id="streamQuality">100</span>%
+                    </div>
+                    <div class="stat-item">
+                        <i class="material-icons">visibility</i>
+                        <span id="viewers">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="material-icons">favorite</i>
+                        <span id="hypeLevel">0</span>%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orta Panel (Stream Görüntüsü) -->
+            <div class="main-content">
+                <div class="stream-header">
+                    <div class="live-indicator">LIVE</div>
+                    <div class="stream-info">
+                        <div class="stream-title" id="currentTitle">Harika bir yayın!</div>
+                        <div class="stream-time" id="streamTime">00:00:00</div>
+                    </div>
+                    <div class="stream-controls">
+                        <button class="minimize-btn"><i class="material-icons">remove</i></button>
+                        <button class="close-btn"><i class="material-icons">close</i></button>
+                    </div>
+                </div>
+
+                <div class="stream-view">
+                    <div id="streamArea" class="stream-player">
+                        <video id="streamVideo" class="stream-video" loop muted>
+                            <source src="" type="video/mp4">
+                        </video>
+                        <div class="stream-overlay">
+                            <div class="quality-indicator">
+                                <span id="qualityBadge">720p</span>
+                                <span id="fpsBadge">30 FPS</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stream-controls-bar">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="control-buttons">
+                            <button id="muteStream" class="control-btn">
+                                <i class="material-icons">volume_up</i>
+                            </button>
+                            <button id="endStream" class="control-btn stop-btn">STOP</button>
+                            <button id="showSettings" class="control-btn">
+                                <i class="material-icons">settings</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ Panel (Chat) -->
+            <div class="chat-panel">
+                <div id="chatMessages" class="chat-messages"></div>
+                <div class="chat-controls">
+                    <button class="chat-control-btn">
+                        <i class="material-icons">chat</i>
+                    </button>
+                    <button class="chat-control-btn">
+                        <i class="material-icons">favorite</i>
+                    </button>
+                    <button class="chat-control-btn">
+                        <i class="material-icons">brightness_medium</i>
+                    </button>
+                    <button class="chat-control-btn">
+                        <i class="material-icons">fast_forward</i>
+                    </button>
+                    <button class="chat-control-btn">
+                        <i class="material-icons">timer</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ayarlar Modal -->
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Yayın Ayarları</h2>
+                    <button class="close-modal"><i class="material-icons">close</i></button>
+                </div>
+                <div class="settings-grid">
+                    <div class="setting-group">
+                        <h3>Temel Ayarlar</h3>
+                        <div class="setting-item">
+                            <label for="streamTitle">Yayın Başlığı</label>
+                            <input type="text" id="streamTitle" placeholder="Harika bir yayın!" maxlength="50">
+                        </div>
+                        <div class="setting-item">
+                            <label for="streamTopic">Yayın Kategorisi</label>
+                            <select id="streamTopic">
+                                <option value="gaming">Oyun</option>
+                                <option value="irl">IRL</option>
+                                <option value="justchatting">Sohbet</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="streamLanguage">Yayın Dili</label>
+                            <select id="streamLanguage">
+                                <option value="tr">Türkçe</option>
+                                <option value="en">İngilizce</option>
+                                <option value="both">İki Dilli</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3>Yayın Kalitesi</h3>
+                        <div class="setting-item">
+                            <label for="streamResolution">Çözünürlük</label>
+                            <select id="streamResolution">
+                                <option value="720p">720p</option>
+                                <option value="1080p" disabled>1080p (Pro)</option>
+                                <option value="1440p" disabled>1440p (Pro)</option>
+                                <option value="4k" disabled>4K (Pro)</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="streamFPS">FPS</label>
+                            <select id="streamFPS">
+                                <option value="30">30 FPS</option>
+                                <option value="60" disabled>60 FPS (Pro)</option>
+                                <option value="120" disabled>120 FPS (Pro)</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="bitrate">Bitrate</label>
+                            <select id="bitrate">
+                                <option value="2000">2000 Kbps</option>
+                                <option value="4000" disabled>4000 Kbps (Pro)</option>
+                                <option value="8000" disabled>8000 Kbps (Pro)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3>Chat Ayarları</h3>
+                        <div class="setting-item">
+                            <label for="chatMode">Sohbet Modu</label>
+                            <select id="chatMode">
+                                <option value="everyone">Herkes</option>
+                                <option value="followers">Sadece Takipçiler</option>
+                                <option value="subscribers">Sadece Aboneler (1000+ Takipçi)</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="autoMod">AutoMod Seviyesi</label>
+                            <select id="autoMod">
+                                <option value="0">Kapalı</option>
+                                <option value="1">Düşük</option>
+                                <option value="2">Orta</option>
+                                <option value="3">Yüksek</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="slowMode">
+                                <span>Yavaş Mod (30 saniye)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="startStream" class="primary-btn">Yayına Başla</button>
+                    <button id="saveSettings" class="secondary-btn">Ayarları Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="data/chatMessages.js"></script>
+    <script src="data/usernames.js"></script>
+    <script src="data/upgrades.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 
